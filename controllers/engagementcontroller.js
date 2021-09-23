@@ -38,6 +38,12 @@ router.get('/', validateSession, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
+router.get('/:accountId', validateSession, (req, res) => {
+  Engagement.findAll({ where: { accountId: req.params.accountId } })
+    .then((engagement) => res.status(200).json(engagement))
+    .catch((error) => res.status(500).json(error));
+});
+
 //delete engagement by selected Id
 router.delete('/delete/:id', validateSession, (req, res) => {
   const query = { where: { id: req.params.id } };

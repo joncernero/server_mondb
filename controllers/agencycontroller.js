@@ -12,8 +12,8 @@ router.post('/create', validateSession, function (req, res) {
     .catch((error) => res.status(500).json(error));
 });
 
-router.get('/', validateSession, (req, res) => {
-  Agency.findAll({ where: { accountId: req.params.accountId } })
+router.get('/:id', validateSession, (req, res) => {
+  Agency.findAll({ where: { id: req.params.id }, include: ['accounts'] })
     .then((agency) => res.status(200).json(agency))
     .catch((error) => res.status(500).json(error));
 });
@@ -25,4 +25,5 @@ router.delete('/delete/:id', validateSession, (req, res) => {
     .then(() => res.status(200).json({ message: 'Agency removed' }))
     .catch((error) => res.status(500).json(error));
 });
+
 module.exports = router;

@@ -42,6 +42,12 @@ router.get('/', validateSession, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
+router.get('/:accountId', validateSession, (req, res) => {
+  Campaign.findAll({ where: { accountId: req.params.accountId } })
+    .then((campaign) => res.status(200).json(campaign))
+    .catch((error) => res.status(200).json(error));
+});
+
 router.delete('/delete/:id', validateSession, (req, res) => {
   const query = { where: { id: req.params.id } };
 

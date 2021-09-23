@@ -50,7 +50,13 @@ router.put('/update/:id', validateSession, (req, res) => {
 router.get('/', validateSession, (req, res) => {
   Order.findAll({ where: { accountId: req.params.accountId } })
     .then((order) => res.status(200).json(order))
-    .catch((error) => res.status(200).json(error));
+    .catch((error) => res.status(500).json(error));
+});
+
+router.get('/:accountId', validateSession, (req, res) => {
+  Order.findAll({ where: { accountId: req.params.accountId } })
+    .then((order) => res.status(200).json(order))
+    .catch((error) => res.status(500).json(error));
 });
 
 router.delete('/delete/:id', validateSession, (req, res) => {
