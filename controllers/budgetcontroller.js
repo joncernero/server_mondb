@@ -41,7 +41,7 @@ router.put('/update/:id', validateSession, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
-router.get('/', validateSession, (req, res) => {
+router.get('/:orderId', validateSession, (req, res) => {
   Budget.findAll({ where: { orderId: req.params.orderId } })
     .then((budget) => res.status(200).json(budget))
     .catch((error) => res.status(500).json(error));

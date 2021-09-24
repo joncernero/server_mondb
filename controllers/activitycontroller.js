@@ -37,8 +37,14 @@ router.get('/', validateSession, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
-router.get('/:accountId', validateSession, (req, res) => {
+router.get('/getactivitybyaccount/:accountId', validateSession, (req, res) => {
   Activity.findAll({ where: { accountId: req.params.accountId } })
+    .then((activity) => res.status(200).json(activity))
+    .catch((error) => res.status(500).json(error));
+});
+
+router.get('/getactivitybyuser/:userId', validateSession, (req, res) => {
+  Activity.findAll({ where: { userId: req.params.userId } })
     .then((activity) => res.status(200).json(activity))
     .catch((error) => res.status(500).json(error));
 });

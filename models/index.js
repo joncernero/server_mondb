@@ -28,6 +28,9 @@ Account.hasMany(Sales);
 Activity.belongsTo(Account);
 Account.hasMany(Activity);
 
+Activity.belongsTo(User);
+User.hasMany(Activity);
+
 Order.belongsTo(Account);
 Account.hasMany(Order);
 

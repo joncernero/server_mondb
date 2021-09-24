@@ -54,41 +54,16 @@ router.delete('/delete/:id', validateSession, (req, res) => {
     .catch((err) => res.status(500).json({ error: err }));
 });
 
-router.get('/:userId', validateSession, (req, res) => {
+router.get('/getaccountbyuser/:userId', validateSession, (req, res) => {
   Account.findAll({ where: { userId: req.params.userId } })
     .then((account) => res.status(200).json(account))
     .catch((error) => res.status(500).json(error));
 });
 
-router.get('/:agencyId', validateSession, (req, res) => {
+router.get('/getaccountbyagency/:agencyId', validateSession, (req, res) => {
   Account.findAll({ where: { agencyId: req.params.agencyId } })
     .then((account) => res.status(200).json(account))
     .catch((error) => res.status(500).json(error));
 });
-// router.put('/update', async function (req, res) {
-//   try {
-//     const { userId, accountId } = req.body;
-
-//     const account = await Account.findOne({
-//       where: { id: accountId },
-//     });
-
-//     if (!account) {
-//       throw new Error(`Account not found for id: ${accountId}`);
-//     }
-
-//     const updatedAccount = await account.update({
-//       user_id: userId,
-//     });
-
-//     if (!updatedAccount) {
-//       throw new Error('There was an error updating the account');
-//     }
-
-//     res.status(200).json(updatedAccount);
-//   } catch (error) {
-//     res.status(500).json({ error });
-//   }
-// });
 
 module.exports = router;
