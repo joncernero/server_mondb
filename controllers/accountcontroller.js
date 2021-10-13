@@ -13,7 +13,7 @@ router.post('/create', validateSession, (req, res) => {
     assignmentDate: req.body.assignmentDate,
     primaryXCode: req.body.primaryXCode,
     userId: req.body.userId || null,
-    agencyId: req.body.accountId || null,
+    agencyId: req.body.agencyId || null,
   };
   Account.create(newAccount)
     .then((account) => res.status(200).json(account))
@@ -46,6 +46,12 @@ router.get('/', validateSession, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
+router.get('/:id', validateSession, (req, res) => {
+  Account.findAll({ where: { id: req.params.id } })
+    .then((account) => res.status(200).json(account))
+    .catch((error) => res.status(500).json(error));
+});
+
 router.delete('/delete/:id', validateSession, (req, res) => {
   const query = { where: { id: req.params.id } }; // for now this will only allow me to delete one account at a time?
 
@@ -54,16 +60,16 @@ router.delete('/delete/:id', validateSession, (req, res) => {
     .catch((err) => res.status(500).json({ error: err }));
 });
 
-router.get('/getaccountbyuser/:userId', validateSession, (req, res) => {
-  Account.findAll({ where: { userId: req.params.userId } })
-    .then((account) => res.status(200).json(account))
-    .catch((error) => res.status(500).json(error));
-});
+// router.get('/getaccountbyuser/:userId', validateSession, (req, res) => {
+//   Account.findAll({ where: { userId: req.params.userId } })
+//     .then((account) => res.status(200).json(account))
+//     .catch((error) => res.status(500).json(error));
+// });
 
-router.get('/getaccountbyagency/:agencyId', validateSession, (req, res) => {
-  Account.findAll({ where: { agencyId: req.params.agencyId } })
-    .then((account) => res.status(200).json(account))
-    .catch((error) => res.status(500).json(error));
-});
+// router.get('/getaccountbyagency/:agencyId', validateSession, (req, res) => {
+//   Account.findAll({ where: { agencyId: req.params.agencyId } })
+//     .then((account) => res.status(200).json(account))
+//     .catch((error) => res.status(500).json(error));
+// });
 
 module.exports = router;

@@ -4,8 +4,9 @@ const { User } = require('../models/index');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const validateSession = require('../middleware/validate-session');
+const validateAdmin = require('../middleware/validate-admin');
 
-router.post('/create', (req, res) => {
+router.post('/create', validateSession, validateAdmin, (req, res) => {
   User.create({
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 13),
@@ -14,7 +15,7 @@ router.post('/create', (req, res) => {
     campaignManager: req.body.firstName + ' ' + req.body.lastName,
     role: req.body.role,
   })
-    .then(function registrationSuccess(user) {
+    .then((user) => {
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
         expiresIn: 60 * 60 * 24,
       });
@@ -34,7 +35,7 @@ router.post('/login', (req, res) => {
       email: req.body.email,
     },
   })
-    .then(function loginSuccess(user) {
+    .then((user) => {
       if (user) {
         // res.json({ user: user })
         bcrypt.compare(
@@ -67,11 +68,10 @@ router.post('/login', (req, res) => {
 
 router.put('/update/:id', validateSession, (req, res) => {
   const updateUser = {
-    email: req.body.email,
-    password: req.body.password,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    role: req.body.req,
+    campaignManager: req.body.firstName + ' ' + req.body.lastName,
+    role: req.body.role,
   };
 
   const query = { where: { id: req.params.id } };
@@ -84,14 +84,14 @@ router.put('/update/:id', validateSession, (req, res) => {
 router.get('/', (req, res) => {
   User.findAll()
     .then((users) => res.status(200).json(users))
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => res.status(500).json(error));
 });
 
-router.delete('/delete/:id', validateSession, (req, res) => {
+router.delete('/delete/:id', validateSession, validateAdmin, (req, res) => {
   const query = { where: { id: req.params.id } };
 
   User.destroy(query)
     .then(() => res.status(200).json({ message: 'User removed' }))
-    .catch((err) => res.status(500).json({ error: err }));
+    .catch((error) => res.status(500).json(error));
 });
 module.exports = router;

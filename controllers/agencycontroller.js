@@ -7,8 +7,16 @@ router.post('/create', validateSession, function (req, res) {
     agencyName: req.body.agencyName,
   };
 
+  console.log({ newAgency });
+
   Agency.create(newAgency)
     .then((agency) => res.status(200).json(agency))
+    .catch((error) => res.status(500).json(error));
+});
+
+router.get('/', validateSession, (req, res) => {
+  Agency.findAll()
+    .then((account) => res.status(200).json(account))
     .catch((error) => res.status(500).json(error));
 });
 
