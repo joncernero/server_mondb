@@ -22,6 +22,7 @@ router.put('/update/:id', validateSession, (req, res) => {
   const updateActivity = {
     activityNotes: req.body.activityNotes,
     dueDate: req.body.dueDate,
+    userId: req.body.userId,
   };
 
   const query = { where: { id: req.params.id } };
@@ -31,19 +32,13 @@ router.put('/update/:id', validateSession, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
-router.get('/', validateSession, (req, res) => {
+router.get('/:accountId', validateSession, (req, res) => {
   Activity.findAll({ where: { accountId: req.params.accountId } })
     .then((activity) => res.status(200).json(activity))
     .catch((error) => res.status(500).json(error));
 });
 
-router.get('/getactivitybyaccount/:accountId', validateSession, (req, res) => {
-  Activity.findAll({ where: { accountId: req.params.accountId } })
-    .then((activity) => res.status(200).json(activity))
-    .catch((error) => res.status(500).json(error));
-});
-
-router.get('/getactivitybyuser/:userId', validateSession, (req, res) => {
+router.get('/:userId', validateSession, (req, res) => {
   Activity.findAll({ where: { userId: req.params.userId } })
     .then((activity) => res.status(200).json(activity))
     .catch((error) => res.status(500).json(error));
@@ -54,7 +49,7 @@ router.delete('/delete/:id', validateSession, (req, res) => {
 
   Activity.destroy(query)
     .then(() => res.status(200).json({ message: 'Activity removed' }))
-    .catch((error) => res.status(500).json(error));
+    .catch((err) => res.status(500).json({ error: err }));
 });
 
 module.exports = router;
