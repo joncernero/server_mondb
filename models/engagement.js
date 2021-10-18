@@ -7,12 +7,12 @@ const Engagement = db.define('engagement', {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
   },
-  frequency: {
+  engagementNote: {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  engagementNote: {
-    type: DataTypes.STRING,
+  date: {
+    type: DataTypes.DATEONLY,
     allowNull: true,
   },
 });

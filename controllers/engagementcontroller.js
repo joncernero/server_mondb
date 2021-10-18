@@ -22,8 +22,8 @@ router.post('/create', validateSession, async (req, res) => {
 
 router.put('/update/:id', validateSession, (req, res) => {
   const updateEngagement = {
-    frequency: req.body.frequency,
     engagementNote: req.body.engagementNote,
+    date: req.body.date,
   };
   const query = { where: { id: req.params.id } };
 
