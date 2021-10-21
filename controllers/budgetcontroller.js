@@ -1,17 +1,17 @@
 const router = require('express').Router();
-const { Budget, Order } = require('../models');
+const { Budget, Account } = require('../models');
 const validateSession = require('../middleware/validate-session');
 
 //add new budget passing the associated Order Id
 router.post('/create', validateSession, async (req, res) => {
   try {
-    const order = await Order.findOne({
-      where: { id: req.body.orderId },
+    const account = await Account.findOne({
+      where: { id: req.body.accountId },
     });
 
     const budget = await Budget.create(req.body);
 
-    order.addBudget(budget);
+    account.addBudget(budget);
 
     res.status(200).json(budget);
   } catch (err) {
@@ -41,8 +41,8 @@ router.put('/update/:id', validateSession, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
-router.get('/:orderId', validateSession, (req, res) => {
-  Budget.findAll({ where: { orderId: req.params.orderId } })
+router.get('/:accountId', validateSession, (req, res) => {
+  Budget.findAll({ where: { accountId: req.params.accountId } })
     .then((budget) => res.status(200).json(budget))
     .catch((error) => res.status(500).json(error));
 });

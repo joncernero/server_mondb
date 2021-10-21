@@ -1,17 +1,17 @@
 const router = require('express').Router();
-const { Implementation, Provider } = require('../models');
+const { Implementation, Account } = require('../models');
 const validateSession = require('../middleware/validate-session');
 
 //creating Implementation with selected associated Id
 router.post('/create', validateSession, async (req, res) => {
   try {
-    const provider = await Provider.findOne({
-      where: { id: req.body.providerId },
+    const account = await Account.findOne({
+      where: { id: req.body.accountId },
     });
 
     const implementation = await Implementation.create(req.body);
 
-    provider.addImplementation(implementation);
+    account.addImplementation(implementation);
     res.status(200).json(implementation);
   } catch (err) {
     console.error(err);
@@ -40,8 +40,8 @@ router.put('/update/:id', validateSession, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
-router.get('/', validateSession, (req, res) => {
-  Implementation.findAll({ where: { providerId: req.params.providerId } })
+router.get('/:accountId', validateSession, (req, res) => {
+  Implementation.findAll({ where: { accountId: req.params.accountId } })
     .then((implementation) => res.status(200).json(implementation))
     .catch((error) => res.status(500).json(error));
 });

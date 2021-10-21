@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../db');
 
-const WeeklyUpdate = db.define('update', {
+const WeeklyUpdate = db.define('weekly', {
   id: {
     primaryKey: true,
     type: DataTypes.UUID,

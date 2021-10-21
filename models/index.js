@@ -37,11 +37,14 @@ Account.hasMany(Order);
 Status.belongsTo(Account);
 Account.hasMany(Status);
 
-Implementation.belongsTo(Provider);
-Provider.hasMany(Implementation);
+Implementation.belongsTo(Account);
+Account.hasMany(Implementation);
 
 Engagement.belongsTo(Account);
 Account.hasMany(Engagement);
+
+Budget.belongsTo(Account);
+Account.hasMany(Budget);
 
 Budget.belongsTo(Order);
 Order.hasMany(Budget);
@@ -51,6 +54,9 @@ Agency.hasMany(IO);
 
 Order.belongsTo(IO);
 IO.hasMany(Order);
+
+WeeklyUpdate.belongsTo(Account);
+Account.hasMany(WeeklyUpdate);
 
 WeeklyUpdate.belongsTo(Budget);
 Budget.hasMany(WeeklyUpdate);

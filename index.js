@@ -28,8 +28,8 @@ app.use('/status', controllers.status);
 
 sequelize
   .authenticate()
-  .then(() => sequelize.sync())
-  // .then(() => sequelize.sync({ force: true }))
+  // .then(() => sequelize.sync())
+  .then(() => sequelize.sync({ force: false, alter: true }))
   .then(() =>
     app.listen(process.env.PORT, () => {
       console.log(`server is listening on port ${process.env.PORT}`);

@@ -8,7 +8,7 @@ const Status = db.define('status', {
     defaultValue: DataTypes.UUIDV4,
   },
   atRiskAtOnset: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   accountState: {
@@ -24,7 +24,7 @@ const Status = db.define('status', {
     allowNull: true,
   },
   churnDate: {
-    type: DataTypes.DATEONLY,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   closeNotes: {

@@ -4,13 +4,13 @@ const validateSession = require('../middleware/validate-session');
 
 router.post('/create', validateSession, async (req, res) => {
   try {
-    const budget = await Budget.findOne({
-      where: { id: req.body.budgetId },
+    const account = await Account.findOne({
+      where: { id: req.body.accountId },
     });
 
     const weeklyUpdate = await WeeklyUpdate.create(req.body);
 
-    // budget.addWeeklyUpdate(weeklyUpdate);
+    account.addWeeklyUpdate(weeklyUpdate);
     res.status(200).json(weeklyUpdate);
   } catch (err) {
     console.error(err);
@@ -33,8 +33,8 @@ router.put('/update/:id', validateSession, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
-router.get('/', validateSession, (req, res) => {
-  WeeklyUpdate.findAll({ where: { budgetId: req.params.budgetId } }) // will this be available in params?
+router.get('/:accountId', validateSession, (req, res) => {
+  WeeklyUpdate.findAll({ where: { accountId: req.params.accountId } }) // will this be available in params?
     .then((weeklyUpdate) => res.status(200).json(weeklyUpdate))
     .catch(error.res.status(500).json(error));
 });
