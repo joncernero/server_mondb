@@ -2,13 +2,10 @@ const router = require('express').Router();
 const { Agency, Account } = require('../models');
 const validateSession = require('../middleware/validate-session');
 
-router.post('/create', validateSession, function (req, res) {
+router.post('/create', validateSession, (req, res) => {
   const newAgency = {
     agencyName: req.body.agencyName,
   };
-
-  console.log({ newAgency });
-
   Agency.create(newAgency)
     .then((agency) => res.status(200).json(agency))
     .catch((error) => res.status(500).json(error));
@@ -20,10 +17,21 @@ router.get('/', validateSession, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
-router.get('/:id', validateSession, (req, res) => {
-  Agency.findAll({ where: { id: req.params.id }, include: ['accounts'] })
+// router.get('/:id', validateSession, (req, res) => {
+//   Agency.findAll({ where: { id: req.params.id }, include: ['accounts'] })
+//     .then((agency) => res.status(200).json(agency))
+//     .catch((error) => res.status(500).json(error));
+// });
+
+router.put('/update/:id', validateSession, (req, res) => {
+  const updateAgency = {
+    agencyName: req.body.agencyName,
+  };
+  const query = { where: { id: req.params.id } };
+
+  Agency.update(updateAgency, query)
     .then((agency) => res.status(200).json(agency))
-    .catch((error) => res.status(500).json(error));
+    .catch((error) => res.status.apply(500).json(error));
 });
 
 router.delete('/delete/:id', validateSession, (req, res) => {
