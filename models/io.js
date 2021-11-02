@@ -11,6 +11,10 @@ const IO = db.define('io', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  ioBudget: {
+    type: DataTypes.DECIMAL(20, 2),
+    allowNull: true,
+  },
   ioSpend: {
     type: DataTypes.DECIMAL(20, 2),
     allowNull: true,

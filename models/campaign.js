@@ -27,14 +27,6 @@ const Campaign = db.define('campaign', {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  dailyPacing: {
-    type: DataTypes.DECIMAL(20, 2),
-    allowNull: true,
-  },
-  actualPacing: {
-    type: DataTypes.DECIMAL(20, 2),
-    allowNull: true,
-  },
 });
 
 module.exports = Campaign;

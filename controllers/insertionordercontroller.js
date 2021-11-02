@@ -5,6 +5,7 @@ const validateSession = require('../middleware/validate-session');
 router.post('/create', validateSession, async (req, res) => {
   const newIo = {
     agencyIO: req.body.agencyIO,
+    ioBudget: req.body.ioBudget,
     ioSpend: req.body.ioSpend,
     agencyId: req.body.agencyId || null,
   };
@@ -16,6 +17,7 @@ router.post('/create', validateSession, async (req, res) => {
 router.put('/update/:id', validateSession, (req, res) => {
   const updateIO = {
     agencyIO: req.body.agencyIO,
+    ioBudget: req.body.ioBudget,
     ioSpend: req.body.ioSpend,
     agencyId: req.body.agencyId,
   };

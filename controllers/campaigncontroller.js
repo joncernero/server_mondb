@@ -25,8 +25,6 @@ router.put('/update/:id', validateSession, (req, res) => {
     kpiNotes: req.body.kpiNotes,
     onsetNotes: req.body.onsetNotes,
     pacing: req.body.pacing,
-    dailyPacing: req.body.dailyPacing,
-    actualPacing: req.body.actualPacing,
   };
 
   const query = { where: { id: req.params.id } };

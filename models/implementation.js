@@ -8,7 +8,7 @@ const Implementation = db.define('implementation', {
     defaultValue: DataTypes.UUIDV4,
   },
   mobileOptimized: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   jobsURL: {
@@ -16,7 +16,7 @@ const Implementation = db.define('implementation', {
     allowNull: true,
   },
   pixelStatus: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   sourceTag: {
@@ -24,19 +24,19 @@ const Implementation = db.define('implementation', {
     allowNull: true,
   },
   bidOptimizer: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   awm: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   military: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   ejb: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   guid: {
@@ -44,7 +44,7 @@ const Implementation = db.define('implementation', {
     allowNull: true,
   },
   eligibleForFree: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
 });
