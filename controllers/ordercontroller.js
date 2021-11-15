@@ -3,38 +3,77 @@ const { Order, Account } = require('../models');
 const validateSession = require('../middleware/validate-session');
 const { account } = require('.');
 
-router.post('/create', validateSession, async (req, res) => {
+function findDayDifference(date1, date2) {
+  return Math.floor(
+    Math.abs(new Date(date2) - new Date(date1)) / (1000 * 60 * 60 * 24)
+  );
+}
+
+function findPacing(number1, number2) {
+  return number1 / number2;
+}
+
+function figureCBU(number1, number2, number3) {
+  return (number1 / (number2 * number3)) * 100;
+}
+
+router.post('/create', validateSession, (req, res) => {
+  const totalDays = findDayDifference(req.body.startDate, req.body.endDate);
+  const daysIn =
+    findDayDifference(req.body.spendAsOfDate, req.body.startDate) + 1;
+  const daysRemaining = findDayDifference(
+    req.body.spendAsOfDate,
+    req.body.endDate
+  );
+  const dailyPacing = findPacing(req.body.orderAmount, totalDays);
+
   const newOrder = {
     orderNumber: req.body.orderNumber,
     orderType: req.body.orderType,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     campaignStartDate: req.body.campaignStartDate,
-    amount: req.body.amount,
-    spendAsOf: req.body.spendAsOf,
-    dailyPacing: req.body.dailyPacing,
-    cbu: req.body.cbu,
+    orderAmount: req.body.orderAmount,
+    spendAsOfDate: req.body.spendAsOfDate,
+    totalDays: totalDays,
+    daysIn: daysIn,
+    daysRemaining: daysRemaining,
+    budgetSpent: req.body.budgetSpent,
+    dailyPacing: dailyPacing,
+    cbu: figureCBU(req.body.budgetSpent, daysIn, dailyPacing),
     contractType: req.body.contractType,
     accountId: req.body.accountId || null,
     ioId: req.body.ioId || null,
   };
-
+  console.log(newOrder);
   Order.create(newOrder)
     .then((order) => res.status(200).json(order))
     .catch((error) => res.status(500).json(error));
 });
 
 router.put('/update/:id', validateSession, (req, res) => {
+  const totalDays = findDayDifference(req.body.startDate, req.body.endDate);
+  const daysIn =
+    findDayDifference(req.body.spendAsOfDate, req.body.startDate) + 1;
+  const daysRemaining = findDayDifference(
+    req.body.spendAsOfDate,
+    req.body.endDate
+  );
+  const dailyPacing = findPacing(req.body.orderAmount, totalDays);
   const updateOrder = {
     orderNumber: req.body.orderNumber,
     orderType: req.body.orderType,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     campaignStartDate: req.body.campaignStartDate,
-    amount: req.body.amount,
-    spendAsOf: req.body.spendAsOf,
-    dailyPacing: req.body.dailyPacing,
-    cbu: req.body.cbu,
+    orderAmount: req.body.orderAmount,
+    spendAsOfDate: req.body.spendAsOfDate,
+    totalDays: totalDays,
+    daysIn: daysIn,
+    daysRemaining: daysRemaining,
+    budgetSpent: req.body.budgetSpent,
+    dailyPacing: dailyPacing,
+    cbu: figureCBU(req.body.budgetSpent, daysIn, dailyPacing),
     contractType: req.body.contractType,
     accountId: req.body.accountId || null,
     ioId: req.body.ioId || null,

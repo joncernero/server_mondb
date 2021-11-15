@@ -31,20 +31,38 @@ const Budget = db.define('budget', {
     type: DataTypes.DECIMAL(20, 2),
     allowNull: true,
   },
-  spend: {
+  spendAmount: {
     type: DataTypes.DECIMAL(20, 2),
     allowNull: true,
   },
-  rollerOver: {
+  rollOver: {
     type: DataTypes.DECIMAL(20, 2),
     allowNull: true,
   },
   buPercentage: {
+    type: DataTypes.DECIMAL(5, 2),
+    allowNull: true,
+  },
+  dailyPacing: {
     type: DataTypes.DECIMAL(20, 2),
     allowNull: true,
   },
+  actualPacing: {
+    type: DataTypes.DECIMAL(20, 2),
+  },
   credits: {
     type: DataTypes.DECIMAL(20, 2),
+    allowNull: true,
+  },
+  totalDays: {
+    type: DataTypes.INTEGER,
+  },
+  daysIn: {
+    type: DataTypes.INTEGER,
+    allowNul: true,
+  },
+  daysRemaining: {
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
 });

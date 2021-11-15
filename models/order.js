@@ -27,15 +27,26 @@ const Order = db.define('order', {
     type: DataTypes.DATEONLY,
     allowNull: true,
   },
-  amount: {
+  totalDays: {
+    type: DataTypes.INTEGER,
+  },
+  daysIn: {
+    type: DataTypes.INTEGER,
+    allowNul: true,
+  },
+  daysRemaining: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  orderAmount: {
     type: DataTypes.DECIMAL(20, 2),
     allowNull: true,
   },
-  spendAsOf: {
+  spendAsOfDate: {
     type: DataTypes.DATEONLY,
     allowNull: true,
   },
-  ytdSpend: {
+  budgetSpent: {
     type: DataTypes.DECIMAL(20, 2),
     allowNull: true,
   },
@@ -44,7 +55,7 @@ const Order = db.define('order', {
     allowNull: true,
   },
   cbu: {
-    type: DataTypes.DECIMAL(3, 2),
+    type: DataTypes.DECIMAL(5, 2),
     allowNull: true,
   },
   contractType: {
