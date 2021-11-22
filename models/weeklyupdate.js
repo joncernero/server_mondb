@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../db');
 
-const WeeklyUpdate = db.define('weekly', {
+const WeeklyUpdate = db.define('weeklyupdate', {
   id: {
     primaryKey: true,
     type: DataTypes.UUID,
@@ -16,7 +16,7 @@ const WeeklyUpdate = db.define('weekly', {
     allowNull: true,
   },
   activeCampaigns: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
   date: {

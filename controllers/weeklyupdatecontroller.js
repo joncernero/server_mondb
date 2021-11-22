@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { WeeklyUpdate, Budget } = require('../models');
+const { WeeklyUpdate, Account } = require('../models');
 const validateSession = require('../middleware/validate-session');
 
 router.post('/create', validateSession, async (req, res) => {
@@ -8,10 +8,10 @@ router.post('/create', validateSession, async (req, res) => {
       where: { id: req.body.accountId },
     });
 
-    const weeklyUpdate = await WeeklyUpdate.create(req.body);
+    const weeklyupdate = await WeeklyUpdate.create(req.body);
 
-    account.addWeeklyUpdate(weeklyUpdate);
-    res.status(200).json(weeklyUpdate);
+    // account.addWeeklyUpdate(weeklyupdate);
+    res.status(200).json(weeklyupdate);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err });
@@ -24,19 +24,20 @@ router.put('/update/:id', validateSession, (req, res) => {
     jobCount: req.body.jobCount,
     activeCampaigns: req.body.activeCampaigns,
     date: req.body.date,
+    accountId: req.body.accountId,
   };
 
   const query = { where: { id: req.params.id } };
 
   WeeklyUpdate.update(updateWeeklyUpdate, query)
-    .then((weeklyUpdate) => res.status(200).json(weeklyUpdate))
+    .then((weeklyupdate) => res.status(200).json(weeklyupdate))
     .catch((error) => res.status(500).json(error));
 });
 
 router.get('/:accountId', validateSession, (req, res) => {
-  WeeklyUpdate.findAll({ where: { accountId: req.params.accountId } }) // will this be available in params?
-    .then((weeklyUpdate) => res.status(200).json(weeklyUpdate))
-    .catch(error.res.status(500).json(error));
+  WeeklyUpdate.findAll({ where: { accountId: req.params.accountId } })
+    .then((weeklyupdate) => res.status(200).json(weeklyupdate))
+    .catch((error) => res.status(500).json(error));
 });
 
 router.delete('/delete/:id', validateSession, (req, res) => {

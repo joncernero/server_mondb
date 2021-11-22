@@ -35,6 +35,10 @@ const Budget = db.define('budget', {
     type: DataTypes.DECIMAL(20, 2),
     allowNull: true,
   },
+  projectedSpend: {
+    type: DataTypes.DECIMAL(20, 2),
+    allowNull: true,
+  },
   rollOver: {
     type: DataTypes.DECIMAL(20, 2),
     allowNull: true,

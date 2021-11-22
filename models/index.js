@@ -58,9 +58,6 @@ IO.hasMany(Order);
 WeeklyUpdate.belongsTo(Account);
 Account.hasMany(WeeklyUpdate);
 
-WeeklyUpdate.belongsTo(Budget);
-Budget.hasMany(WeeklyUpdate);
-
 Campaign.belongsTo(Account);
 Account.hasMany(Campaign);
 

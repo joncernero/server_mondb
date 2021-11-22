@@ -16,6 +16,13 @@ function figureBU(number1, number2, number3) {
 function figureRollOver(number1, number2) {
   return number1 - number2;
 }
+function figureSpendToGo(number1, number2, number3) {
+  return number1 * number2 + number3;
+}
+
+function addNumber(number1, number2) {
+  return number1 + number2;
+}
 
 //add new budget selecting the associated Order Id
 router.post('/create', validateSession, async (req, res) => {
@@ -34,6 +41,7 @@ router.post('/create', validateSession, async (req, res) => {
     spendAsOf: req.body.spendAsOf || null,
     budgetAmount: req.body.budgetAmount,
     spendAmount: req.body.spendAmount,
+    projectedSpend: req.body.projectedSpend,
     rollOver: rollOver || null,
     buPercentage: figureBU(req.body.spendAmount, daysIn, dailyPacing) || null,
     dailyPacing: dailyPacing,
@@ -66,6 +74,7 @@ router.put('/update/:id', validateSession, (req, res) => {
     spendAsOf: req.body.spendAsOf,
     budgetAmount: req.body.budgetAmount,
     spendAmount: req.body.spendAmount,
+    projectedSpend: req.body.projectedSpend,
     rollOver: rollOver,
     buPercentage: figureBU(req.body.spendAmount, daysIn, dailyPacing),
     dailyPacing: dailyPacing,
