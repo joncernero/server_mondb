@@ -41,6 +41,7 @@ router.put('/update/:id', validateSession, (req, res) => {
 
 //fetch all accounts for main account page
 router.get('/', validateSession, (req, res) => {
+  console.log(req.query);
   Account.findAll()
     .then((account) => res.status(200).json(account))
     .catch((error) => res.status(500).json(error));
@@ -48,6 +49,12 @@ router.get('/', validateSession, (req, res) => {
 
 router.get('/:id', validateSession, (req, res) => {
   Account.findAll({ where: { id: req.params.id } })
+    .then((account) => res.status(200).json(account))
+    .catch((error) => res.status(500).json(error));
+});
+
+router.get('/:userId', validateSession, (req, res) => {
+  Account.findAll({ where: { userId: req.body.userId } })
     .then((account) => res.status(200).json(account))
     .catch((error) => res.status(500).json(error));
 });
