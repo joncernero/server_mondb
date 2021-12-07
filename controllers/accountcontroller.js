@@ -12,8 +12,8 @@ router.post('/create', validateSession, (req, res) => {
     accountType: req.body.accountType,
     assignmentDate: req.body.assignmentDate,
     primaryXCode: req.body.primaryXCode,
-    userId: req.body.userId || null,
-    agencyId: req.body.agencyId || null,
+    userId: req.body.userId,
+    agencyId: req.body.agencyId,
   };
   Account.create(newAccount)
     .then((account) => res.status(200).json(account))
@@ -28,8 +28,8 @@ router.put('/update/:id', validateSession, (req, res) => {
     accountType: req.body.accountType,
     assignmentDate: req.body.assignmentDate,
     primaryXCode: req.body.primaryXCode,
-    userId: req.body.userId || null,
-    agencyId: req.body.agencyId || null,
+    userId: req.body.userId,
+    agencyId: req.body.agencyId,
   };
 
   const query = { where: { id: req.params.id } };
@@ -41,7 +41,6 @@ router.put('/update/:id', validateSession, (req, res) => {
 
 //fetch all accounts for main account page
 router.get('/', validateSession, (req, res) => {
-  console.log(req.query);
   Account.findAll()
     .then((account) => res.status(200).json(account))
     .catch((error) => res.status(500).json(error));

@@ -7,7 +7,7 @@ router.post('/create', validateSession, async (req, res) => {
     agencyIO: req.body.agencyIO,
     ioBudget: req.body.ioBudget,
     ioSpend: req.body.ioSpend,
-    agencyId: req.body.agencyId || null,
+    agencyId: req.body.agencyId,
   };
   IO.create(newIo)
     .then((io) => res.status(200).json(io))

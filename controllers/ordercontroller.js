@@ -42,8 +42,8 @@ router.post('/create', validateSession, (req, res) => {
     dailyPacing: dailyPacing,
     cbu: figureCBU(req.body.budgetSpent, daysIn, dailyPacing),
     contractType: req.body.contractType,
-    accountId: req.body.accountId || null,
-    ioId: req.body.ioId || null,
+    accountId: req.body.accountId,
+    ioId: req.body.ioId,
   };
   console.log(newOrder);
   Order.create(newOrder)
@@ -75,8 +75,8 @@ router.put('/update/:id', validateSession, (req, res) => {
     dailyPacing: dailyPacing,
     cbu: figureCBU(req.body.budgetSpent, daysIn, dailyPacing),
     contractType: req.body.contractType,
-    accountId: req.body.accountId || null,
-    ioId: req.body.ioId || null,
+    accountId: req.body.accountId,
+    ioId: req.body.ioId,
   };
 
   const query = { where: { id: req.params.id } };
