@@ -12,6 +12,8 @@ app.use(require('./middleware/headers'));
 
 app.use(express.json());
 
+const PORT = process.env.PORT || 3001;
+
 //app.use(require('./middleware/validate-session))
 app.use('/user', controllers.user);
 app.use('/account', controllers.account);
@@ -33,8 +35,8 @@ sequelize
   // .then(() => sequelize.sync())
   .then(() => sequelize.sync({ force: false, alter: true }))
   .then(() =>
-    app.listen(process.env.PORT, () => {
-      console.log(`server is listening on port ${process.env.PORT}`);
+    app.listen(PORT, () => {
+      console.log(`server is listening on port ${PORT}`);
     })
   )
   .catch((e) => {
