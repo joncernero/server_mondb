@@ -3,9 +3,11 @@ const express = require('express');
 const app = express();
 const sequelize = require('./db');
 const controllers = require('./controllers');
+const cors = require('cors');
 
 // sequelize.sync();
 //sequelize.sync({ force: true });
+app.use(cors());
 app.use(require('./middleware/headers'));
 
 app.use(express.json());
