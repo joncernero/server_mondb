@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
           req.body.password,
           user.password,
           function (err, matches) {
-            if (matches) {
+            if (!matches) {
               let token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
                 expiresIn: 60 * 60 * 24,
               });
@@ -53,7 +53,7 @@ router.post('/login', (req, res) => {
                 sessionToken: token,
               });
             } else {
-              res.status(502).send({ error: 'Login Failed' });
+              res.status(502).send({ error: 'Login Failed', message: err });
             }
           }
         );
